@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const chalk = require('chalk');
 const config = require('./config.json');
-const dotenv = require('dotenv').config();
+
 //constants------------------------------------------------------------------------------
 const client = new Discord.Client();
 const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
