@@ -1,0 +1,10 @@
+{
+    "name": "mrs.robot",
+    "description": "Bride of Mr. Robot",
+    "image": "heroku/nodejs",
+    "buildpacks": [
+        {
+            "url": "heroku/nodejs"
+        }
+    ]
+}
