@@ -1,10 +1,12 @@
 //required libraries---------------------------------------------------------------------
 const Discord = require('discord.js');
 const chalk = require('chalk');
-const client = new Discord.Client();
 const config = require('./config.json');
+const dotenv = require('dotenv').config();
+//constants------------------------------------------------------------------------------
+const client = new Discord.Client();
 const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
-
+const discordToken = process.env.DISCORD_TOKEN;
 client //connections---------------------------------------------------------------------
     .on('ready', () => {
         console.log(chalk.green.bold(`Mrs.Robot is up and online at ${new Date()}`));
@@ -17,7 +19,7 @@ client //connections------------------------------------------------------------
     .on('reconnecting', () => {
         console.log(chalk.yellow.bold(`Mrs. Robot is reconnecting at ${new Date()}`));
     })
-    .login(process.ENV.discordToken);
+    .login(discordToken);
 client //console logging-----------------------------------------------------------------
     .on('debug', e => {
         console.log(chalk.bold.blue(e.replace(regToken, `that was redacted`)));
