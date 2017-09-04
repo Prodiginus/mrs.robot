@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 const chalk = require('chalk');
 const config = require('./config.json');
+require('dotenv').config();
 //constants------------------------------------------------------------------------------
 const client = new Discord.Client();
 const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
@@ -32,7 +33,7 @@ client //console logging--------------------------------------------------------
 client //automatic guild events----------------------------------------------------------
     .on('guildCreate', guild => {
       console.log(chalk.magenta(`Joined ${guild.name} at ${new Date()}`));
-      let defChannel = guild.channels.find('name', 'general');
+      let defChannel = guild.channels.find('name', 'mod-logs') || guild.channels.find('name', 'general');
       if(guild.available) {
         defChannel.send("Type `%sortbots` to add the `Bots` role to every bot that is in this server\n\nAny new bots that join will be automatically added to the bot role\n\nIf you want the invite link just type `%invite`\n\nAnd type `%bots` and I'll tell you how many bots this server has\n\nType `%help` to see this message again");
       };
@@ -41,7 +42,7 @@ client //automatic guild events-------------------------------------------------
       let guild = member.guild;
       let botRole = guild.roles.find('name', 'Bots');
       let selfRole = guild.member(client.user).highestRole;
-      let defChannel = guild.channels.find('name', 'general');
+      let defChannel = guild.channels.find('name', 'mod-logs') || guild.channels.find('name', 'general');
       if ((member.user.bot) && (botRole)) {
         if ((botRole) && (selfRole.position > botRole.position))  {
           member.addRole(botRole.id);
