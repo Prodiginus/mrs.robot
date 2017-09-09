@@ -12,7 +12,7 @@ client //connections------------------------------------------------------------
         console.log(chalk.green(`Mrs.Robot is up and online at ${new Date()}`))
         console.log(chalk.green(`Here's my invite link: ${config.invLink}`))
         console.log(chalk.green(`I am in the current guilds: ${client.guilds.map(m => m.name)}`))
-        client.user.setPresence({status: "online", game: {name: "with herself", type: 1, url: "https://www.twitch.tv/twitc1"}})
+        client.user.setPresence({status: "online", game: {name: "with herself", type: 1, url: "https://www.twitch.tv"}})
         client.user.setAvatar(`./botIconInv.png`)
     })
     .on('disconnect', () => {
