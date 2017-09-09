@@ -109,7 +109,7 @@ client //text commands----------------------------------------------------------
         }
       }
       if (message.content == config.prefix + 'cleanroles') {
-        if (rolesByBots.size > 1) {
+        if (rolesByBots.size >= 1) {
           if (selfRole.position > highBotRole.position) {
               rolesByBots.forEach(b => b.delete())
               if (rolesByBots.size == 1) {
