@@ -16,9 +16,9 @@ client //connections------------------------------------------------------------
     //client.user.setAvatar(`./botIconInv.png`)
     client.user.setPresence({
       status: "online",
-      game: {
+      activity: {
         name: "myself",
-        type: 1,
+        type: "STREAMING",
         url: "https://www.twitch.tv/monstercat"
       }
     })
