@@ -145,12 +145,12 @@ client //text commands----------------------------------------------------------
           "description": "Once I have been added to your server, make sure that my role default role `Mrs. Robot` is higher on the role list than any of the other bots roles, including the main bot's role. It is very important for many of the functions of this bot that this be true.",
           "color": 8393331,
           "footer": {
-            "icon_url": `${client.user.avatarURL}`,
+            "icon_url": `./botIconInv.png`,
             "text": `@ Mrs. Robot | ${message.createdAt}`
           },
           "author": {
             "name": "Help",
-            "icon_url": `${client.user.avatarURL}`
+            "icon_url": `./botIconInv.png`
           },
           "fields": [
             {
