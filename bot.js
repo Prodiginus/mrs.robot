@@ -138,7 +138,7 @@ client //text commands----------------------------------------------------------
         }
     }
     if (message.content == config.prefix + 'test') {
-      message.channel.send(new Embed(`test`))
+      message.channel.send(new Embed(`welcome`))
     }
   })
 // new stuff
