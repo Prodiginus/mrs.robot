@@ -1,19 +1,20 @@
 //required libraries---------------------------------------------------------------------
-  const Discord = require('discord.js');
-  const chalk = require('chalk');
-  const config = require('./config.json');
-  require('dotenv').config();
+  const Discord = require('discord.js')
+  const chalk = require('chalk')
+  require('dotenv').config()
+//required dependancy files--------------------------------------------------------------
+  const config = require('./req/config.json')  
+  const Embed = require('./req/embeds.js')
 //constants------------------------------------------------------------------------------
-  const client = new Discord.Client();
-  const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
-  const discordToken = process.env.DISCORD_TOKEN;
+  const client = new Discord.Client()
+  const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g
+  const discordToken = process.env.DISCORD_TOKEN
 client //connections---------------------------------------------------------------------
   .on('ready', () => {
     console.log(chalk.green(`Mrs.Robot is up and online at ${new Date()}`))
     console.log(chalk.green(`Here is my invite link: ${config.invLink}`))
     console.log(chalk.green(`I am in ${client.guilds.size} current guilds: ${client.guilds.map(m => m.name)}`))
 
-    //client.user.setAvatar(`./botIconInv.png`)
     client.user.setPresence({
       status: "online",
       activity: {
@@ -44,53 +45,7 @@ client //automatic guild events-------------------------------------------------
   .on('guildCreate', guild => {
     console.log(chalk.magenta(`Joined ${guild.name} at ${new Date()}`))
     let welcomeChannel = guild.channels.find('name', 'general') || guild.channels.find('name', 'social')
-    welcomeChannel.send({
-      "embed": {
-        "title": "**`Help`**",
-        "description": "Once I have been added to your server, make sure that my role default role `Mrs. Robot` is higher on the role list than any of the other bots roles, including the main bot's role. It is very important for many of the functions of this bot that this be true.",
-        "color": 8393331,
-        "footer": {
-          "icon_url": `${client.user.avatarURL}`,
-          "text": `@ Mrs. Robot | ${new Date()}`
-        },
-        "author": {
-          "name": "Help",
-          "icon_url": `${client.user.avatarURL}`
-        },
-        "fields": [
-          {
-            "name": "`%invite`",
-            "value": "This command sends the invite link"
-          },
-          {
-            "name": "`%bots`",
-            "value": "This command will display the amount of bots on the server"
-          },
-          {
-            "name": "`%help`",
-            "value": "This command will resend this message"
-          },
-          {
-            "name": "`%sortbots`",
-            "value": "This command will sort all of the bots into a `Bots` role\n(If your bot role is named something different than `Bots`, change the name and then change it back after running the command)"
-          },
-          {
-            "name": "`%cleanroles`",
-            "value": "This command will delete all the roles that the bots have auto-generated when added to this server"
-          },
-          {
-            "name": `<:blackcat:274348850515410944>`,
-            "value": "Created for bots",
-            "inline": true
-          },
-          {
-            "name": `<:whitecat:274348772761272321>`,
-            "value": "Maintained for bots",
-            "inline": true
-          }
-        ]
-      }
-    })
+    welcomeChannel.send(new Embed(`welcome`))
   })
   .on('guildMemberAdd', member => {
     let guild = member.guild
@@ -133,59 +88,13 @@ client //text commands----------------------------------------------------------
     let highBotRole = rolesByBots.last()
 
     if (message.content == config.prefix + 'invite') {
-      message.channel.send(`Here\'s my invite link\n${config.invLink}`)
+      message.channel.send(`Here\'s my invite link\n${config.links.invLink}`)
     }
     if (message.content == config.prefix + 'bots') {
       message.channel.send(`This server currently contains ${allBots.length} bots including myself`)
     }
     if (message.content == config.prefix + 'help') {
-      message.channel.send({
-        "embed": {
-          "title": "**`Help`**",
-          "description": "Once I have been added to your server, make sure that my role default role `Mrs. Robot` is higher on the role list than any of the other bots roles, including the main bot's role. It is very important for many of the functions of this bot that this be true.",
-          "color": 8393331,
-          "footer": {
-            "icon_url": `./botIconInv.png`,
-            "text": `@ Mrs. Robot | ${message.createdAt}`
-          },
-          "author": {
-            "name": "Help",
-            "icon_url": `./botIconInv.png`
-          },
-          "fields": [
-            {
-              "name": "`%invite`",
-              "value": "This command sends the invite link"
-            },
-            {
-              "name": "`%bots`",
-              "value": "This command will display the amount of bots on the server"
-            },
-            {
-              "name": "`%help`",
-              "value": "This command will resend this message"
-            },
-            {
-              "name": "`%sortbots`",
-              "value": "This command will sort all of the bots into a `Bots` role\n(If your bot role is named something different than `Bots`, change the name and then change it back after running the command)"
-            },
-            {
-              "name": "`%cleanroles`",
-              "value": "This command will delete all the roles that the bots have auto-generated when added to this server"
-            },
-            {
-              "name": `<:blackcat:274348850515410944>`,
-              "value": "Created for bots",
-              "inline": true
-            },
-            {
-              "name": `<:whitecat:274348772761272321>`,
-              "value": "Maintained for bots",
-              "inline": true
-            }
-          ]
-        }
-      })
+      message.channel.send(new Embed(`help`))
     }
     if (message.content == config.prefix + 'sortbots') {
       if ((botRole) && (selfRole.position > botRole.position)) {
@@ -229,52 +138,7 @@ client //text commands----------------------------------------------------------
         }
     }
     if (message.content == config.prefix + 'test') {
-      message.channel.send({
-        "embed": {
-          "title": "**`Help`**",
-          "description": "Once I have been added to your server, make sure that my role default role `Mrs. Robot` is higher on the role list than any of the other bots roles, including the main bot's role. It is very important for many of the functions of this bot that this be true.",
-          "color": 8393331,
-          "footer": {
-            "icon_url": `${client.user.avatarURL}`,
-            "text": `@ Mrs. Robot | ${message.createdAt}`
-          },
-          "author": {
-            "name": "Help",
-            "icon_url": `${client.user.avatarURL}`
-          },
-          "fields": [
-            {
-              "name": "`%invite`",
-              "value": "This command sends the invite link"
-            },
-            {
-              "name": "`%bots`",
-              "value": "This command will display the amount of bots on the server"
-            },
-            {
-              "name": "`%help`",
-              "value": "This command will resend this message"
-            },
-            {
-              "name": "`%sortbots`",
-              "value": "This command will sort all of the bots into a `Bots` role\n(If your bot role is named something different than `Bots`, change the name and then change it back after running the command)"
-            },
-            {
-              "name": "`%cleanroles`",
-              "value": "This command will delete all the roles that the bots have auto-generated when added to this server"
-            },
-            {
-              "name": `<:blackcat:274348850515410944>`,
-              "value": "Created for bots",
-              "inline": true
-            },
-            {
-              "name": `<:whitecat:274348772761272321>`,
-              "value": "Maintained for bots",
-              "inline": true
-            }
-          ]
-        }
-      })
+      message.channel.send(new Embed(`test`))
     }
-  });
+  })
+// new stuff
