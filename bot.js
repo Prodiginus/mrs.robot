@@ -86,15 +86,21 @@ client //text commands----------------------------------------------------------
     let selfRole = guild.member(client.user).highestRole
     let rolesByBots = guild.roles.filter(r => r.managed).filter(r => !['Mrs. Robot'].includes(r.name)).sort(function (m, i) { return m.position - i.position })
     let highBotRole = rolesByBots.last()
+    let args = message.content.substring(config.prefix.length).split(" ")
 
-    if (message.content == config.prefix + 'invite') {
-      message.channel.send(`Here\'s my invite link\n${config.links.invLink}`)
-    }
-    if (message.content == config.prefix + 'bots') {
-      message.channel.send(`This server currently contains ${allBots.length} bots including myself`)
-    }
-    if (message.content == config.prefix + 'help') {
-      message.channel.send(new Embed(`help`))
+    switch (args[0].toLowerCase()) {
+      case "invite": 
+        message.channel.send(new Embed(`invite`))
+      break
+      case "help":
+        message.channel.send(new Embed(`help`))
+      break
+      case "test":
+        message.channel.send(new Embed(`welcome`))
+      break
+      case "bots":
+        message.channel.send(`This server currently contains ${allBots.length} bots including myself`)
+      break
     }
     if (message.content == config.prefix + 'sortbots') {
       if ((botRole) && (selfRole.position > botRole.position)) {
@@ -136,9 +142,6 @@ client //text commands----------------------------------------------------------
         if (rolesByBots.size < 1) {
           message.channel.send('The only auto-generated bot role is mine')
         }
-    }
-    if (message.content == config.prefix + 'test') {
-      message.channel.send(new Embed(`welcome`))
     }
   })
 // new stuff

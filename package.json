@@ -1,6 +1,6 @@
 {
   "name": "ms.robot",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Bride to Mr. Robot",
   "main": "bot.js",
   "engines": {

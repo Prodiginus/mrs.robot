@@ -59,3 +59,6 @@ typings/
 
 # eslint
 .eslintrc.json
+
+# other
+desktop.ini
