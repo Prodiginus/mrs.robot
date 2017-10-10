@@ -12,7 +12,7 @@
 client //connections---------------------------------------------------------------------
   .on('ready', () => {
     console.log(chalk.green(`Mrs.Robot is up and online at ${new Date()}`))
-    console.log(chalk.green(`Here is my invite link: ${config.invLink}`))
+    console.log(chalk.green(`Here is my invite link: ${config.links.invLink}`))
     console.log(chalk.green(`I am in ${client.guilds.size} current guilds: ${client.guilds.map(m => m.name)}`))
 
     client.user.setPresence({
@@ -23,6 +23,7 @@ client //connections------------------------------------------------------------
         url: "https://www.twitch.tv/monstercat"
       }
     })
+
   })
   .on('disconnect', () => {
     console.log(chalk.red.bold(`Mrs.Robot was disconnected at ${new Date()}`))
