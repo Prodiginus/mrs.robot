@@ -1,19 +1,38 @@
 //required libraries---------------------------------------------------------------------
   const Discord = require('discord.js')
   const chalk = require('chalk')
+  const fs = require('fs')
+//initialization-------------------------------------------------------------------------
   require('dotenv').config()
-//required dependancy files--------------------------------------------------------------
-  const config = require('./req/config.json')  
-  const Embed = require('./req/embeds.js')
 //constants------------------------------------------------------------------------------
+  const commands = new Discord.Collection()
   const client = new Discord.Client()
+  const config = require('./req/config.json')
   const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g
   const discordToken = process.env.DISCORD_TOKEN
+//commands loader------------------------------------------------------------------------
+  fs.readdir('./commands/', (error, files) => {
+    if (error) {
+      console.log(chalk.red(error))
+    }
+    let jsFiles = files.filter(f => f.split('.').pop() === 'js');
+    if(jsFiles.length <= 0) {
+      console.log(chalk.yellow('No commands to load'))
+    } else {
+      console.log(chalk.blue(`Loading ${jsFiles.length} commands`))
+      jsFiles.forEach((f, i) => {
+        let props = require(`./commands/${f}`)
+        console.log(chalk.green(`→ ${f} has been loaded`))
+        commands.set(props.info.name, props)
+      })
+    }
+  })
+
 client //connections---------------------------------------------------------------------
   .on('ready', () => {
-    console.log(chalk.green(`Mrs.Robot is up and online at ${new Date()}`))
-    console.log(chalk.green(`Here is my invite link: ${config.links.invLink}`))
-    console.log(chalk.green(`I am in ${client.guilds.size} current guilds: ${client.guilds.map(m => m.name)}`))
+    console.log(chalk.green(`Mrs. Robot is up and online at ${new Date()}`))
+    console.log(chalk.cyan(`Here is my invite link: ${config.links.invLink}`))
+    console.log(chalk.magenta(`I am currently in ${client.guilds.size} guilds: ${client.guilds.map(m => m.name)}`))
 
     client.user.setPresence({
       status: "online",
@@ -23,25 +42,24 @@ client //connections------------------------------------------------------------
         url: "https://www.twitch.tv/monstercat"
       }
     })
-
   })
   .on('disconnect', () => {
-    console.log(chalk.red.bold(`Mrs.Robot was disconnected at ${new Date()}`))
+    console.log(chalk.red(`Mrs.Robot was disconnected at ${new Date()}`))
   })
   .on('reconnecting', () => {
-    console.log(chalk.yellow.bold(`Mrs. Robot is reconnecting at ${new Date()}`))
+    console.log(chalk.yellow(`Mrs. Robot is reconnecting at ${new Date()}`))
   })
   .login(discordToken)
 client //console logging-----------------------------------------------------------------
   .on('debug', e => {
-    console.log(chalk.bold.blue(e.replace(regToken, `that was redacted`)))
+    console.log(chalk.blue(e.replace(regToken, `that was redacted`)))
   })
   .on('warn', e => {
     console.log(chalk.yellow(e.replace(regToken, `that was redacted`)))
   })
   .on('error', e => {
     console.log(chalk.red(e.replace(regToken, `that was redacted`)))
-  });
+  })
 client //automatic guild events----------------------------------------------------------
   .on('guildCreate', guild => {
     console.log(chalk.magenta(`Joined ${guild.name} at ${new Date()}`))
@@ -78,71 +96,22 @@ client //automatic guild events-------------------------------------------------
   })
 client //text commands-------------------------------------------------------------------
   .on('message', message => {
-    if ((message.author == client.user) || (!message.content.startsWith(config.prefix))) return
+    if ((message.author == client.user) || (!message.content.startsWith(config.prefix)) || (message.author.bot) || (message.channel.type == 'dm')) return
     let guild = message.guild
+    let selfRole = guild.member(client.user).highestRole
+    let rolesByBots = guild.roles.filter(r => r.managed).filter(r => !['Mrs. Robot'].includes(r.name)).sort(function (m, i) { return m.position - i.position })
+    let highBotRole = rolesByBots.last()
     let allMembers = guild.members.array()
     let allBots = allMembers.filter(b => b.user.bot)
     let botsNoRole = allBots.filter(t => !guild.member(t.user).roles.find('name', 'Bots'))
     let botRole = guild.roles.find('name', 'Bots')
-    let selfRole = guild.member(client.user).highestRole
-    let rolesByBots = guild.roles.filter(r => r.managed).filter(r => !['Mrs. Robot'].includes(r.name)).sort(function (m, i) { return m.position - i.position })
-    let highBotRole = rolesByBots.last()
-    let args = message.content.substring(config.prefix.length).split(" ")
+  
+    let messageArray = message.content.split(/\s+/g)
+    let command = messageArray[0]
+    let args = messageArray.slice(1)
+    let cmd = commands.get(command.slice(config.prefix.length))
 
-    switch (args[0].toLowerCase()) {
-      case "invite": 
-        message.channel.send(new Embed(`invite`))
-      break
-      case "help":
-        message.channel.send(new Embed(`help`))
-      break
-      case "test":
-        message.channel.send(new Embed(`welcome`))
-      break
-      case "bots":
-        message.channel.send(`This server currently contains ${allBots.length} bots including myself`)
-      break
-    }
-    if (message.content == config.prefix + 'sortbots') {
-      if ((botRole) && (selfRole.position > botRole.position)) {
-        if (botsNoRole.length > 0) {
-          botsNoRole.forEach(b => b.addRole(botRole.id))
-          if (botsNoRole.length == 1) {
-            message.channel.send(`Added ${botsNoRole.length} bot to the bot role`)
-          } else
-            if (botsNoRole.length > 1) {
-              message.channel.send(`Added ${botsNoRole.length} bots to the bot role`)
-            }
-        } else
-          if (botsNoRole.length < 1) {
-            message.channel.send('All the bots already have the role')
-          }
-      } else
-        if (!botRole) {
-          message.channel.send("You don't have a role with the name of `Bots`")
-        } else
-          if (selfRole.position <= botRole.position) {
-            message.channel.send(`I have to have a higher role than the \`Bots\` role or I can't add the role to the bots`)
-          }
-    }
-    if (message.content == config.prefix + 'cleanroles') {
-      if (rolesByBots.size >= 1) {
-        if (selfRole.position > highBotRole.position) {
-          rolesByBots.forEach(b => b.delete())
-          if (rolesByBots.size == 1) {
-            message.channel.send(`Deleted ${rolesByBots.size} auto-generated bot role`)
-          } else
-            if (rolesByBots.size > 1) {
-              message.channel.send(`Deleted ${rolesByBots.size} auto-generated bot roles`)
-            }
-        } else
-          if (selfRole.position <= highBotRole.position) {
-            message.channel.send(`I have to have a higher role than all the other bot roles or I can't delete them`)
-          }
-      } else
-        if (rolesByBots.size < 1) {
-          message.channel.send('The only auto-generated bot role is mine')
-        }
+    if(cmd) {
+      cmd.run(client, message, args)
     }
   })
-// new stuff

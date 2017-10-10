@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 const config = require('./config.json')
+
 module.exports = class Embed {
   constructor(type) {
     this.type = type
