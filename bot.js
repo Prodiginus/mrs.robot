@@ -2,14 +2,16 @@
   const Discord = require('discord.js')
   const chalk = require('chalk')
   const fs = require('fs')
-//initialization-------------------------------------------------------------------------
-  require('dotenv').config()
+  const dotenv = require('dotenv')
+  const snekfetch = require('snekfetch')
 //constants------------------------------------------------------------------------------
-  const commands = new Discord.Collection()
+  dotenv.config()
+  const discordToken = process.env.DISCORD_TOKEN
+  const discordBotsToken = process.env.DISCORD_BOTS_TOKEN
   const client = new Discord.Client()
+  const commands = new Discord.Collection()
   const config = require('./req/config.json')
   const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g
-  const discordToken = process.env.DISCORD_TOKEN
 //commands loader------------------------------------------------------------------------
   fs.readdir('./commands/', (error, files) => {
     if (error) {
@@ -42,6 +44,11 @@ client //connections------------------------------------------------------------
         url: "https://www.twitch.tv/monstercat"
       }
     })
+    snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
+      .set('Authorization', `${discordBotsToken}`)
+      .send({ server_count: client.guilds.size })
+      .then(console.log(chalk.green('Updated server count')))
+      .catch(e => console.log(chalk.red('Something went wrong')))
   })
   .on('disconnect', () => {
     console.log(chalk.red(`Mrs.Robot was disconnected at ${new Date()}`))
