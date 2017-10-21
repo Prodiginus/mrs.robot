@@ -32,10 +32,9 @@
     })
 client //connections---------------------------------------------------------------------
     .on('ready', () => {
-        console.log(chalk.green(`Mrs. Robot is up and online at ${new Date()}`))
-        console.log(chalk.cyan(`Here is my invite link: ${config.links.invLink}`))
-        console.log(chalk.magenta(`I am currently in ${client.guilds.size} guilds: ${client.guilds.map(m => m.name)}`))
-
+        console.log(chalk.green(`Mrs. Robot is up and online at\n${new Date()}`))
+        console.log(chalk.cyan(`Here is my invite link:\n${config.links.invLink}`))
+        console.log(chalk.magenta(`I am currently in ${client.guilds.size} guilds:\n${client.guilds.map(m => m.name)}`))
         client.user.setPresence({
             status: "online",
             activity: {
@@ -50,11 +49,12 @@ client //connections------------------------------------------------------------
             .then(console.log(chalk.green('Updated server count')))
             .catch(e => console.log(chalk.red(`Something went wrong: ${e}`)))
     })
-    .on('disconnect', () => {
-        console.log(chalk.red(`Mrs.Robot was disconnected at ${new Date()}`))
+    .on('disconnect', (closeEvent) => {
+        console.log(chalk.red(`Mrs.Robot was disconnected at:\n${new Date()}`))
+        console.log(chalk.red(`Event:\n${closeEvent}`))
     })
     .on('reconnecting', () => {
-        console.log(chalk.yellow(`Mrs. Robot is reconnecting at ${new Date()}`))
+        console.log(chalk.yellow(`Mrs. Robot is reconnecting at:\n${new Date()}`))
     })
     .login(discordToken)
 client //console logging-----------------------------------------------------------------
@@ -70,8 +70,8 @@ client //console logging--------------------------------------------------------
 client //automatic guild events----------------------------------------------------------
     .on('guildCreate', guild => {
         console.log(chalk.magenta(`Joined ${guild.name} at ${new Date()}`))
-        let welcomeChannel = guild.channels.find('name', 'general') || guild.channels.find('name', 'social')
-        welcomeChannel.send(new Embed(`welcome`))
+        let defChannel = guild.channels.find(c => c.name.includes('bot')) || guild.channels.find(c => c.name.includes('log')) || guild.channels.find(c => ['safe-playgroud', 'general', 'social'].includes(c.name))        
+        defChannel.send(new Embed(`welcome`))
     })
     .on('guildMemberAdd', member => {
         let guild = member.guild

@@ -8,10 +8,10 @@
     "npm": ">=5.0"
   },
   "dependencies": {
-    "chalk": "^2.1.0",
-    "discord.js": "github:hydrabolt/discord.js",
+    "chalk": "^2.2.0",
+    "discord.js": "^11.2.1",
     "dotenv": "^4.0.0",
-    "snekfetch": "^3.5.1"
+    "snekfetch": "^3.5.3"
   },
   "devDependencies": {},
   "scripts": {
