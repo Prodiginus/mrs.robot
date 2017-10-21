@@ -37,9 +37,10 @@ client //connections------------------------------------------------------------
         console.log(chalk.magenta(`I am currently in ${client.guilds.size} guilds:\n${client.guilds.map(m => m.name)}`))
         client.user.setPresence({
             status: "online",
-            activity: {
-                name: "myself",
-                type: "STREAMING",
+            game: {
+                name: "MonsterCat",
+                streaming: true,
+                type: 1,
                 url: "https://www.twitch.tv/monstercat"
             }
         })
