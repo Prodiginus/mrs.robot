@@ -11,7 +11,7 @@
     const client = new Discord.Client()
     const commands = new Discord.Collection()
     const config = require('./req/config.json')
-    const Embed = require('./req/embeds.js')
+    const Embed = require('./req/Embeds.js')
     const regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g
 //commands loader------------------------------------------------------------------------
     fs.readdir('./commands/', (error, files) => {
@@ -122,4 +122,3 @@ client //text commands----------------------------------------------------------
             cmd.run(client, message, args)
         }
 })
-
