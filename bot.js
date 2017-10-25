@@ -1,11 +1,11 @@
 //required libraries---------------------------------------------------------------------
+    const opbeat = require('opbeat').start()
+    const dotenv = require('dotenv').config()
     const Discord = require('discord.js')
     const chalk = require('chalk')
     const fs = require('fs')
-    const dotenv = require('dotenv')
     const snekfetch = require('snekfetch')
 //constants------------------------------------------------------------------------------
-    dotenv.config()
     const discordToken = process.env.DISCORD_TOKEN
     const discordBotsToken = process.env.DISCORD_BOTS_TOKEN
     const client = new Discord.Client()
