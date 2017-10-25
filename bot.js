@@ -1,5 +1,4 @@
 //required libraries---------------------------------------------------------------------
-    const opbeat = require('opbeat').start()
     const dotenv = require('dotenv').config()
     const Discord = require('discord.js')
     const chalk = require('chalk')
