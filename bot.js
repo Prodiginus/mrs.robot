@@ -33,7 +33,7 @@ client //connections------------------------------------------------------------
     .on('ready', () => {
         console.log(chalk.green(`Mrs. Robot is up and online at\n${new Date()}`))
         console.log(chalk.cyan(`Here is my invite link:\n${config.links.invLink}`))
-        console.log(chalk.magenta(`I am currently in ${client.guilds.size} guilds:\n${client.guilds.map(m => m.name)}`))
+        console.log(chalk.magenta(`I am currently in ${client.guilds.size} guilds`))
         client.user.setPresence({
             status: "online",
             game: {
