@@ -120,5 +120,8 @@ client //text commands----------------------------------------------------------
 
         if (cmd) {
             cmd.run(client, message, args)
+            console.log(message.author.username)
+            console.log(message.guild.name)
+            console.log(message.content)
         }
 })
