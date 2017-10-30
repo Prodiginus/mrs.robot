@@ -4,8 +4,8 @@
   "description": "Bride to Mr. Robot",
   "main": "bot.js",
   "engines": {
-    "node": ">=8.0",
-    "npm": ">=5.0"
+    "node": "8.7.0",
+    "npm": "5.4.2"
   },
   "dependencies": {
     "chalk": "^2.2.0",
