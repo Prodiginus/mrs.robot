@@ -16,7 +16,7 @@ module.exports.run = (client, message, args) => {
         "fields": [
           {
             "name": "Server bot statistics",
-            "value": `This server currently contains ${allBots.length} bots including myself; ${onlineBots.length} are online and ${allBots.length - onlineBots.length} are offline.\nThis means that about ${Math.round((allBots.length / allMembers.length) * 100)}% of your server members are bots`
+            "value": `This server currently contains ${allBots.length} bots including myself; ${onlineBots.length} are online and ${allBots.length - onlineBots.length} are offline.\n\nThis means that about ${Math.round((allBots.length / allMembers.length) * 100)}% of this server's members are bots`
           }
         ]
       }

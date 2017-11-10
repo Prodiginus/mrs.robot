@@ -7,12 +7,12 @@ module.exports = member => {
     let selfRole = guild.member(client.user).highestRole
     let defChannel = guild.channels.find(c => c.name.includes('bot')) || guild.channels.find(c => c.name.includes('log')) || guild.channels.find(c => ['safe-playgroud', 'general', 'social'].includes(c.name))
     if ((member.user.bot) && (botRole)) {
-        if ((botRole) && (selfRole.position > botRole.position)) {
+        if (selfRole.position > botRole.position) {
             member.addRole(botRole.id)
             defChannel.send(`New bot ${member.user.username} has been added to the server and has also been added to the bot role`)
         } else
         if (selfRole.position <= botRole.position) {
-            defChannel.send(`${member.user.username} has just joined but I have to have a higher role than the \`Bots\` role to add them to the \`Bots\` role`)
+            defChannel.send(`${member.user.username} has just joined but I have to have a higher role than the Bots role to add them to the role`)
         }
     } else
     if (!botRole) {
