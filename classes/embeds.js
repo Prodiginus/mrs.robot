@@ -1,4 +1,4 @@
-const config = require('./config.json')
+const config = require('../req/config.json')
 
 module.exports = class Embed {
   constructor(type) {

@@ -1,4 +1,4 @@
-const Embed = require('../req/embeds.js')
+const Embed = require('../classes/embeds.js')
 
 module.exports.run =  (client, message, args) => {
   message.channel.send(new Embed(`welcome`))
