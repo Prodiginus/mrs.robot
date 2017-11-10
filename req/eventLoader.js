@@ -17,5 +17,4 @@ module.exports = client => {
         .on('guildMemberAdd', reqEvent('guildMemberAdd'))
         .on('guildDelete', reqEvent('guildDelete'))
         .on('guildMemberRemove', reqEvent('guildMemberRemove'))
-
 }

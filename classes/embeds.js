@@ -22,7 +22,6 @@ module.exports = class Embed {
             ],
           }
         }
-      break
       case "welcome":
         return {
           "embed": {
@@ -53,7 +52,6 @@ module.exports = class Embed {
             }
           }
         }
-      break
       case "invite":
         return {
           "embed": {
@@ -70,7 +68,6 @@ module.exports = class Embed {
             ]
           }
         }
-      break
     }
   }
 }
