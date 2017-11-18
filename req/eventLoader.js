@@ -13,8 +13,8 @@ module.exports = client => {
         //client events
         .on('message', reqEvent('message'))
         //guild events
-        .on('guildCreate', reqEvent('guildCreate'))
-        .on('guildMemberAdd', reqEvent('guildMemberAdd'))
-        .on('guildDelete', reqEvent('guildDelete'))
-        .on('guildMemberRemove', reqEvent('guildMemberRemove'))
+        .on('guildCreate', reqEvent('guildCreate'))/*
+        .on('guildMemberAdd', reqEvent('guildMemberAdd'))*/
+        .on('guildDelete', reqEvent('guildDelete'))/*
+        .on('guildMemberRemove', reqEvent('guildMemberRemove'))*/
 }
