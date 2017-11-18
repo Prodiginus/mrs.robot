@@ -21,11 +21,11 @@ module.exports.run =  (client, message, args) => {
       }
   } else
     if (!botRole) {
-      message.channel.send("You don't have a role with the name of `Bots`")
+        message.channel.send("You don't have a role with the name of `Bots`")
     } else
-      if (selfRole.position <= botRole.position) {
+    if (selfRole.position <= botRole.position) {
         message.channel.send(`I have to have a higher role than the \`Bots\` role or I can't add the role to the bots`)
-      }
+    }
 }
 
 module.exports.info = {
