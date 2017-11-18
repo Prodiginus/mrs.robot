@@ -5,7 +5,7 @@ module.exports = member => {
     let client = guild.client
     let botRole = guild.roles.find('name', 'Bots')
     let selfRole = guild.member(client.user).highestRole
-    let defChannel = guild.channels.find(c => c.name.includes('bot')) || guild.channels.find(c => c.name.includes('log')) || guild.channels.find(c => ['safe-playgroud', 'general', 'social'].includes(c.name))
+    let defChannel = guild.channels.find(c => c.name.includes('bot')) || guild.channels.find(c => c.name.includes('log')) || guild.channels.find(c => ['safe-playgroud', 'general', 'social'].includes(c.name)) || guild.channels.find(c => c.name.includes('-'))        
     if ((member.user.bot) && (botRole)) {
         if (selfRole.position > botRole.position) {
             member.addRole(botRole.id)
