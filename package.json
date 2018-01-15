@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
-    "discord.js": "^11.2.1",
+    "discord.js": "^11.3.0",
     "dotenv": "^4.0.0",
-    "snekfetch": "^3.5.8"
+    "snekfetch": "^3.6.1"
   },
   "devDependencies": {},
   "scripts": {

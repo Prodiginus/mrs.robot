@@ -4,6 +4,6 @@
 //constants------------------------------------------------------------------------------
     const client = new Discord.Client()    
     const discordToken = process.env.DISCORD_TOKEN
-//initialization
+//initialization-------------------------------------------------------------------------
     client.login(discordToken)
     require('./req/eventLoader.js')(client)
