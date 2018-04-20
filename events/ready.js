@@ -18,13 +18,8 @@ module.exports = client => {
         return num1 + num2
     }
     const totalBots = botCount.reduce(sum)
-    client.user.setPresence({
-        status: "online",
-        game: {
-            name: `${totalBots} bots`,
-            type: 3,
-        }
-    })
+    client.user.setActivity(`${totalBots} bots`, {type: 'PLAYING'});
+    
     snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
         .set('Authorization', `${discordBotsToken}`)
         .send({server_count: client.guilds.size})
