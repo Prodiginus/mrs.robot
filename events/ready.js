@@ -18,7 +18,7 @@ module.exports = client => {
         return num1 + num2
     }
     const totalBots = botCount.reduce(sum)
-    client.user.setActivity(`${totalBots} bots`, {type: 'PLAYING'})
+    client.user.setActivity(`${totalBots} bots`, {type: 'WATCHING'})
     
     snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
         .set('Authorization', `${discordBotsToken}`)
