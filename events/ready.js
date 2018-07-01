@@ -1,7 +1,5 @@
 const chalk = require('chalk')
-const snekfetch = require('snekfetch')
 const config = require('../req/config.json')
-const discordBotsToken = process.env.DISCORD_BOTS_TOKEN
 
 module.exports = client => {
     console.log(chalk.green(`Mrs. Robot is up and online at:\n${new Date()}`))
@@ -19,10 +17,4 @@ module.exports = client => {
     }
     const totalBots = botCount.reduce(sum)
     client.user.setActivity(`${totalBots} bots`, {type: 'WATCHING'})
-    
-    snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
-        .set('Authorization', `${discordBotsToken}`)
-        .send({server_count: client.guilds.size})
-        .then(console.log(chalk.green(`Updated server count for https://discordbots.org`)))
-        .catch(e => console.log(chalk.red(`Something went wrong: ${e}`)))
 }
