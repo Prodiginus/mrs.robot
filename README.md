@@ -1,3 +1,5 @@
+# This is a deprecated bot, it will barely work if it does at all
+
 # Mrs. Robot - A Discord Bot
 
 ## Description
@@ -19,8 +21,6 @@
 ### Documentation - [Official Discord Bots Page](https://discordbots.org/bot/mrs.robot "Discord Bots Page")
 
 ### Direct Invite Link - [Invite Me](https://discordapp.com/oauth2/authorize?client_id=353615282964791297&scope=bot&permissions=268528680 "Invite Link")
-
-### Support Server - [Discord Support Server](https://discord.gg/n5wygZy "Discord Server")
 
 ### Credits to
 
